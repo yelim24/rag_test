@@ -10,7 +10,7 @@ st.write("채팅 테스트")
 # Authenticate to Firestore
 key_dict = json.loads(st.secrets["textkey"])
 creds = service_account.Credentials.from_service_account_info(key_dict)
-db = firestore.Client(credentials=creds, project="streamlit-reddit")
+db = firestore.Client(credentials=creds, project="chatbot-test-443801")
 
 # Create a reference to the Google post.
 doc_ref = db.collection("chat_logs").document("241209-18test")
