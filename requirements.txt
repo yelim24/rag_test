@@ -7,3 +7,4 @@ chromadb
 sentence-transformers
 pandas
 langchain-google-firestore
+google-auth
