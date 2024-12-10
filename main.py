@@ -2,6 +2,7 @@ import streamlit as st
 import json
 from openai import OpenAI
 from google.cloud import firestore
+from google.oauth2 import service_account
 
 st.markdown("#### 채팅 테스트")
 st.write("채팅 테스트")
