@@ -1,0 +1,9 @@
+openai
+streamlit
+torch
+transformers
+langchain
+chromadb
+sentence-transformers
+pandas
+langchain-google-firestore
