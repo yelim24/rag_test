@@ -94,7 +94,10 @@ prompt  = ChatPromptTemplate.from_messages([
 runnable  = prompt | llm
 
 def get_session_history(user_id, project_id):
+    key_dict = json.loads(st.secrets["textkey"])
+    creds = service_account.Credentials.from_service_account_info(key_dict)
     client = firestore.Client(
+        credentials=creds, 
         project=project_id)
 
     firestore_chat_history = CustomFirestoreChatMessageHistory(
