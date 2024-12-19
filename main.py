@@ -134,7 +134,10 @@ with_message_history = RunnableWithMessageHistory(
 
 
 if "messages" not in st.session_state:
-    st.session_state.messages = []
+    # 초기 메시지 설정
+    st.session_state.messages = [
+        {"role": "assistant", "content": "안녕하세요! 오늘 하루는 어땠나요? 무엇이든 이야기해 주세요."}
+    ]
 
 # 기존 메시지를 출력
 for message in st.session_state.messages:
@@ -143,9 +146,6 @@ for message in st.session_state.messages:
 
 # 사용자 입력 처리
 if prompt := st.chat_input("당신의 고민을 말씀해주세요"):
-    user_instruction = ''
-    if st.session_state.messages != []:
-        user_instruction = "(사용자가 적극적으로 표현할 수 있도록 대화를 진행해주세요)"
     st.session_state.messages.append({"role": "user", "content": prompt})
 
     # 사용자 메시지 출력
