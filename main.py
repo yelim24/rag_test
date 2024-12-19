@@ -3,8 +3,6 @@ import json
 from google.cloud import firestore
 from google.oauth2 import service_account
 
-from streamlit_chromadb_connection.chromadb_connection import ChromadbConnection
-from openai import OpenAI
 
 st.markdown("#### 채팅 테스트")
 st.write("채팅 테스트")
