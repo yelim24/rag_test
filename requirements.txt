@@ -9,4 +9,5 @@ pandas
 langchain-google-firestore
 google-auth
 streamlit-chromadb-connection
-sqlite3
+pysqlite3-binary
+
