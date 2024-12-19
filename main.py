@@ -2,7 +2,9 @@ import streamlit as st
 import json
 from google.cloud import firestore
 from google.oauth2 import service_account
-
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 st.markdown("#### 채팅 테스트")
 st.write("채팅 테스트")
