@@ -5,15 +5,45 @@ from google.oauth2 import service_account
 from google.cloud import firestore
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables import RunnableWithMessageHistory, ConfigurableFieldSpec
-from langchain_google_firestore import FirestoreChatMessageHistory, CustomFirestoreChatMessageHistory
+from langchain_google_firestore import FirestoreChatMessageHistory
 from langchain_openai import ChatOpenAI
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import Chroma
 import time
+from langchain_core.messages import BaseMessage
+from datetime import datetime
+import pytz
 
 __import__('pysqlite3')
 import sys
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
+class CustomFirestoreChatMessageHistory(FirestoreChatMessageHistory):
+    def add_message(self, message: BaseMessage) -> None:
+        self.messages.append(message)
+        self._upsert_message(message)  # Firestore에 새로운 메시지만 추가
+        
+    def _upsert_message(self, message: BaseMessage) -> None:
+        kst_now = datetime.now(pytz.timezone('Asia/Seoul'))
+
+        if self.encode_message:
+            encoded_message = message.json().encode()
+            text_message = {
+                "type": getattr(message, "type", "unknown"),
+                "content": message.content,
+                "timestamp": kst_now,
+            }
+
+            update_data = {
+                "messages": firestore.ArrayUnion([encoded_message]),
+                "text_messages": firestore.ArrayUnion([text_message]),
+            }
+        else:
+            update_data = {
+                "messages": firestore.ArrayUnion([message.json()]),
+            }
+
+        self.doc_ref.set(update_data, merge=True)  # merge=True로 업데이트 또는 생성
 
 def return_counseling_sinario(user_input, k=3):
 
