@@ -8,3 +8,4 @@ sentence-transformers
 pandas
 langchain-google-firestore
 google-auth
+streamlit-chromadb-connection
