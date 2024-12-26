@@ -76,7 +76,7 @@ system_prompt_template = """{system_msg}
 {counseling_sinario}
 
 #내담자 정보
-직장 동료와의 트러블로 퇴사를 생각하는 30대 직장인 여성
+운영하는 빵집이 장사가 안 돼 폐업을 고민하는 60대 남성
 """
 
 system_message = """당신은 정신 건강 상담사입니다.
