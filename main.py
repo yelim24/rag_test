@@ -76,7 +76,7 @@ system_prompt_template = """{system_msg}
 {counseling_sinario}
 
 #내담자 정보
-조카를 걱정하는 20대 여성
+직장 동료와의 트러블로 퇴사를 생각하는 30대 직장인 여성
 """
 
 system_message = """당신은 정신 건강 상담사입니다.
