@@ -164,7 +164,7 @@ if prompt := st.chat_input("당신의 고민을 말씀해주세요"):
         },
         config={"configurable": {"user_id": "st_test_3", "project_id": "chatbot-test-443801"}},
     )
-    print(response.to_string())
+    print(response)
     # 챗봇 응답 출력
     bot_response = response.content  # response.content를 Streamlit에 연결
     with st.chat_message("assistant"):
