@@ -76,7 +76,7 @@ system_prompt_template = """{system_msg}
 {counseling_sinario}
 
 #내담자 정보
-운영하는 빵집이 장사가 안 돼 폐업을 고민하는 60대 남성
+돌아가신 어머니를 그리워하는 60대 남성
 """
 
 system_message = """당신은 정신 건강 상담사입니다.
@@ -164,7 +164,7 @@ if prompt := st.chat_input("당신의 고민을 말씀해주세요"):
         },
         config={"configurable": {"user_id": "st_test_3", "project_id": "chatbot-test-443801"}},
     )
-    print(response)
+    st.markdown(response.to_string())
     # 챗봇 응답 출력
     bot_response = response.content  # response.content를 Streamlit에 연결
     with st.chat_message("assistant"):
