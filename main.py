@@ -81,7 +81,7 @@ system_prompt_template = """{system_msg}
 
 system_message = """당신은 정신 건강 상담사입니다.
 아래 상담 예시와 내담자 정보를 참고해서 친절한 말투로 사용자에게 응원, 공감, 안정, 조언을 해주세요.
-답변은 짧게 작성해주세요."""
+답변은 짧고 간결하게 작성해주세요."""
 
 llm = ChatOpenAI(model="gpt-4o-mini", api_key=st.secrets["OPENAI_API_KEY"])
 
