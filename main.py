@@ -162,7 +162,7 @@ if prompt := st.chat_input("당신의 고민을 말씀해주세요"):
             "counseling_sinario": counseling_sinario,
             "human_msg": prompt
         },
-        config={"configurable": {"user_id": "st_test_1", "project_id": "chatbot-test-443801"}},
+        config={"configurable": {"user_id": "st_test_2", "project_id": "chatbot-test-443801"}},
     )
 
     # 챗봇 응답 출력
