@@ -69,8 +69,7 @@ def return_counseling_sinario(user_input, k=3):
     results = [f"내담자: {doc.page_content}\n상담사: {doc.metadata['answer']}"for doc in docs]
     
     return "\n\n".join(results)
-st.markdown("상담 시나리오1")
-st.markdown(return_counseling_sinario("엄마가 보고 싶어"))
+
 system_prompt_template = """{system_msg}
 
 #상담 예시
@@ -155,8 +154,7 @@ if prompt := st.chat_input("당신의 고민을 말씀해주세요"):
 
     # 상담 시나리오 호출
     counseling_sinario = return_counseling_sinario(prompt)
-    st.markdown("상담 시나리오2")
-    st.markdown(counseling_sinario)
+    
     # with_message_history 실행
     response = with_message_history.invoke(
         {
@@ -164,7 +162,7 @@ if prompt := st.chat_input("당신의 고민을 말씀해주세요"):
             "counseling_sinario": counseling_sinario,
             "human_msg": prompt
         },
-        config={"configurable": {"user_id": "st_test_3", "project_id": "chatbot-test-443801"}},
+        config={"configurable": {"user_id": "st_test_4", "project_id": "chatbot-test-443801"}},
     )
     
     # 챗봇 응답 출력
