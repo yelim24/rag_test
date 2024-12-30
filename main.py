@@ -7,6 +7,7 @@ if "messages" not in st.session_state:
     st.session_state.messages = INITIAL_PROMPT
 
 # 기존 메시지를 출력
+st.write(st.session_state.key)
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
