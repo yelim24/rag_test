@@ -33,7 +33,7 @@ class CustomFirestoreChatMessageHistory(FirestoreChatMessageHistory):
 
         self.doc_ref.set(update_data, merge=True)
 
-    def get_messages(self):
+    def get_st_messages(self):
         """Firestore에서 메시지를 가져와서 Streamlit 채팅 형식으로 변환"""
         messages = []
         doc = self.doc_ref.get()
