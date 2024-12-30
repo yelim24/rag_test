@@ -33,6 +33,23 @@ class CustomFirestoreChatMessageHistory(FirestoreChatMessageHistory):
 
         self.doc_ref.set(update_data, merge=True)
 
+    def get_messages(self):
+        """Firestore에서 메시지를 가져와서 Streamlit 채팅 형식으로 변환"""
+        messages = []
+        doc = self.doc_ref.get()
+        
+        if doc.exists:
+            data = doc.to_dict()
+            if 'text_messages' in data:
+                for msg in data['text_messages']:
+                    role = "assistant" if msg["type"] == "ai" else "user"
+                    messages.append({
+                        "role": role,
+                        "content": msg["content"]
+                    })
+        
+        return messages if messages else []
+
 def get_session_history(user_id, project_id):
     key_dict = json.loads(st.secrets["textkey"])
     creds = service_account.Credentials.from_service_account_info(key_dict)
