@@ -4,7 +4,7 @@ from utils.llm_utils import with_message_history, return_counseling_sinario
 from utils.constants import INITIAL_PROMPT, SYSTEM_MESSAGE, RESPONSE_ERROR_MSG
 
 # 사용자 식별자 설정 (예: 로그인 또는 고유 ID)
-USER_ID = st.text_input("사용자 ID를 입력하세요:", value="default_user")  # 예제에서는 입력을 사용
+USER_ID = st.query_params["user_id"]  # 예제에서는 입력을 사용
 messages_key = f"messages_{USER_ID}"  # 사용자별 메시지 키 생성
 
 # 디버깅용 세션 상태 출력
