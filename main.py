@@ -9,21 +9,27 @@ USER_ID = st.query_params["user_id"]
 messages_key = f"messages_{USER_ID}"  # 사용자별 메시지 키 생성
 
 ### Firestore에서 대화 기록 가져오기 test
-st.write("~~대화기록 출력 테스트 시작~~")
 chat_history = get_session_history(USER_ID, "chatbot-test-443801")
 stored_messages = chat_history.messages
-st.write(chat_history)
+
 st.write(stored_messages)
-st.write("~~대화기록 출력 테스트 종료~~")
+
+if messages_key not in st.session_state:
+    if stored_messages:
+        # Firestore에 저장된 메시지가 있으면 그것을 사용
+        st.session_state[messages_key] = stored_messages
+    else:
+        # 저장된 메시지가 없으면 초기 프롬프트 사용
+        st.session_state[messages_key] = INITIAL_PROMPT
 ###
 
-# 디버깅용 세션 상태 출력
-for key in st.session_state.keys():
-    st.write(f"Key: {key}, Value: {st.session_state[key]}")
+# # 디버깅용 세션 상태 출력
+# for key in st.session_state.keys():
+#     st.write(f"Key: {key}, Value: {st.session_state[key]}")
 
-# 사용자별 메시지 상태 초기화
-if messages_key not in st.session_state:
-    st.session_state[messages_key] = INITIAL_PROMPT.copy()  # 기본값 설정
+# # 사용자별 메시지 상태 초기화
+# if messages_key not in st.session_state:
+#     st.session_state[messages_key] = INITIAL_PROMPT.copy()  # 기본값 설정
 
 # 기존 메시지를 출력
 for message in st.session_state[messages_key]:
