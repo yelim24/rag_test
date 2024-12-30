@@ -53,7 +53,7 @@ def return_counseling_sinario(user_input, k=3):
                         model_kwargs={'device':"cpu"},
                         encode_kwargs={'normalize_embeddings':True})
 
-    collection_name = "question_answer1" # 추후 디비 변경 필요
+    collection_name = "question_answer2" # 추후 디비 변경 필요
     db_dir = "./db/chromadb"
 
     # Chroma DB 로드
@@ -66,7 +66,7 @@ def return_counseling_sinario(user_input, k=3):
     
     docs = retriever.invoke(user_input)
     
-    results = [f"내담자: {doc.page_content}\n상담사: {doc.metadata['answer']}"for doc in docs]
+    results = [f"내담자: {doc.page_content}\n\n상담사: {doc.metadata['answer']}"for doc in docs]
     
     return "\n\n".join(results)
 st.markdown("상담 시나리오1")
