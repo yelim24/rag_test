@@ -3,10 +3,14 @@ import time
 from utils.llm_utils import with_message_history, return_counseling_sinario
 from utils.constants import INITIAL_PROMPT, SYSTEM_MESSAGE, RESPONSE_ERROR_MSG
 
-if "messages" not in st.session_state:
-    st.session_state.messages = INITIAL_PROMPT
 
-st.markdown(st.session_state)
+for key in st.session_state.keys():
+    st.write(f"Key: {key}, Value: {st.session_state[key]}")
+
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+    # st.session_state.messages = INITIAL_PROMPT
+
 # 기존 메시지를 출력
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
