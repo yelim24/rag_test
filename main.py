@@ -35,7 +35,7 @@ if prompt := st.chat_input("당신의 고민을 말씀해주세요"):
 
     # 상담 시나리오 호출
     counseling_sinario = return_counseling_sinario(prompt)
-
+    st.write(counseling_sinario)
     # with_message_history 실행
     response = with_message_history.invoke(
         {
@@ -45,7 +45,7 @@ if prompt := st.chat_input("당신의 고민을 말씀해주세요"):
         },
         config={"configurable": {"user_id": USER_ID, "project_id": "chatbot-test-443801"}},
     )
-
+    st.write(response)
     # 챗봇 응답 출력
     try:
         bot_response = response.content
