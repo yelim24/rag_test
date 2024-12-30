@@ -154,7 +154,8 @@ if prompt := st.chat_input("당신의 고민을 말씀해주세요"):
 
     # 상담 시나리오 호출
     counseling_sinario = return_counseling_sinario(prompt)
-    print(counseling_sinario)
+    st.markdown("상담 시나리오")
+    st.markdown(counseling_sinario)
     # with_message_history 실행
     response = with_message_history.invoke(
         {
