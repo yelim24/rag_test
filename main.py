@@ -10,10 +10,9 @@ messages_key = f"messages_{USER_ID}"  # 사용자별 메시지 키 생성
 
 ### Firestore에서 대화 기록 가져오기 test
 chat_history = get_session_history(USER_ID, "chatbot-test-443801")
-stored_messages = chat_history.messages
+stored_messages = chat_history.text_messages
 
-for i in chat_history:
-    st.write(i)
+st.write(stored_messages)
 
 if messages_key not in st.session_state:
     if stored_messages:
