@@ -8,7 +8,7 @@ from utils.firestore_utils import get_session_history
 USER_ID = st.query_params["user_id"] 
 messages_key = f"messages_{USER_ID}"  # 사용자별 메시지 키 생성
 
-### Firestore에서 대화 기록 가져오기
+# Firestore에서 대화 기록 가져오기
 chat_history = get_session_history(USER_ID, "chatbot-test-443801")
 stored_messages = chat_history.get_st_messages()
 
@@ -35,7 +35,7 @@ if prompt := st.chat_input("당신의 고민을 말씀해주세요"):
 
     # 상담 시나리오 호출
     counseling_sinario = return_counseling_sinario(prompt)
-    st.write(counseling_sinario)
+    
     # with_message_history 실행
     response = with_message_history.invoke(
         {
@@ -45,7 +45,7 @@ if prompt := st.chat_input("당신의 고민을 말씀해주세요"):
         },
         config={"configurable": {"user_id": USER_ID, "project_id": "chatbot-test-443801"}},
     )
-    st.write(response)
+    
     # 챗봇 응답 출력
     try:
         bot_response = response.content
