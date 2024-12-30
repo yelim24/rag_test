@@ -1,3 +1,4 @@
+import streamlit as st
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_openai import ChatOpenAI
 from langchain.embeddings import HuggingFaceEmbeddings
