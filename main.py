@@ -2,10 +2,20 @@ import streamlit as st
 import time
 from utils.llm_utils import with_message_history, return_counseling_sinario
 from utils.constants import INITIAL_PROMPT, SYSTEM_MESSAGE, RESPONSE_ERROR_MSG
+from utils.firestore_utils import get_session_history
 
 # 사용자 식별자 설정 (예: 로그인 또는 고유 ID)
-USER_ID = st.query_params["user_id"]  # 예제에서는 입력을 사용
+USER_ID = st.query_params["user_id"] 
 messages_key = f"messages_{USER_ID}"  # 사용자별 메시지 키 생성
+
+### Firestore에서 대화 기록 가져오기 test
+st.write("~~대화기록 출력 테스트 시작~~")
+chat_history = get_session_history(USER_ID, "chatbot-test-443801")
+stored_messages = chat_history.messages
+st.write(chat_history)
+st.write(stored_messages)
+st.write("~~대화기록 출력 테스트 종료~~")
+###
 
 # 디버깅용 세션 상태 출력
 for key in st.session_state.keys():
