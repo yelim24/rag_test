@@ -6,8 +6,8 @@ from utils.constants import INITIAL_PROMPT, SYSTEM_MESSAGE, RESPONSE_ERROR_MSG
 if "messages" not in st.session_state:
     st.session_state.messages = INITIAL_PROMPT
 
+st.markdown(st.session_state)
 # 기존 메시지를 출력
-st.write(st.session_state.key)
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
@@ -22,7 +22,7 @@ if prompt := st.chat_input("당신의 고민을 말씀해주세요"):
 
     # 상담 시나리오 호출
     counseling_sinario = return_counseling_sinario(prompt)
-    st.markdown(st.query_params["first_key"])
+    # st.markdown(st.query_params["first_key"])
     # with_message_history 실행
     response = with_message_history.invoke(
         {
