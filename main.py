@@ -1,6 +1,6 @@
 import streamlit as st
 import time
-from utils.llm_utils import with_message_history, return_counseling_sinario
+from utils.llm_utils import with_message_history, return_counseling_scenario
 from utils.constants import INITIAL_PROMPT, SYSTEM_MESSAGE, RESPONSE_ERROR_MSG
 from utils.firestore_utils import get_session_history
 
@@ -34,13 +34,13 @@ if prompt := st.chat_input("당신의 고민을 말씀해주세요"):
         st.markdown(prompt)
 
     # 상담 시나리오 호출
-    counseling_sinario = return_counseling_sinario(prompt)
+    counseling_scenario = return_counseling_scenario(prompt)
     
     # with_message_history 실행
     response = with_message_history.invoke(
         {
             "system_msg": SYSTEM_MESSAGE,
-            "counseling_sinario": counseling_sinario,
+            "counseling_scenario": counseling_scenario,
             "human_msg": prompt,
         },
         config={"configurable": {"user_id": USER_ID, "project_id": "chatbot-test-443801"}},

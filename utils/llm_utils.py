@@ -11,7 +11,7 @@ __import__('pysqlite3')
 import sys
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
-def return_counseling_sinario(user_input, k=3):
+def return_counseling_scenario(user_input, k=3):
     embedding_model_name = "snunlp/KR-SBERT-V40K-klueNLI-augSTS"
     embeddings_model = HuggingFaceEmbeddings(
         model_name=embedding_model_name,

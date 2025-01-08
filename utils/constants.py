@@ -9,7 +9,7 @@ SYSTEM_MESSAGE = """당신은 정신 건강 상담사입니다.
 PROMPT_TEMPLATE = """{system_msg}
 
 #상담 예시
-{counseling_sinario}
+{counseling_scenario}
 
 #내담자 정보
 돌아가신 어머니를 그리워하는 60대 남성
