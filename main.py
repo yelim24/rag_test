@@ -9,13 +9,16 @@ from utils.llm_utils import get_chat_chain
 USER_ID = st.query_params["user_id"] 
 messages_key = f"messages_{USER_ID}"  # 사용자별 메시지 키 생성
 
+st.wirte("프롬프트 입력 시작 부분")
 custom_prompt = st.text_area(
     "상담사 프롬프트 설정",
     height=200
 )
-
+st.wirte("프롬프트 입력 종료 부분")
 if custom_prompt == '':
-    custom_prompt = PROMPT_TEMPLATE
+    st.session_state.custom_prompt = PROMPT_TEMPLATE
+else:
+    st.session_state.custom_prompt = custom_prompt
 
 with st.chat_message(INITIAL_PROMPT["role"]):
     st.markdown(INITIAL_PROMPT["content"])
@@ -41,7 +44,7 @@ if prompt := st.chat_input("당신의 고민을 말씀해주세요"):
     # )
     
     # chat_chain 초기화
-    chat_chain = get_chat_chain(custom_prompt)
+    chat_chain = get_chat_chain(st.session_state.custom_prompt)
 
     # 채팅 응답 생성
     response = chat_chain.invoke(
