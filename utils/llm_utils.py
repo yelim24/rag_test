@@ -36,37 +36,75 @@ def return_counseling_scenario(user_input, k=3):
     ]
     return "\n\n".join(results)
 
-llm = ChatOpenAI(model="gpt-4o-mini", api_key=st.secrets["OPENAI_API_KEY"])
+# llm = ChatOpenAI(model="gpt-4o-mini", api_key=st.secrets["OPENAI_API_KEY"])
 
-prompt = ChatPromptTemplate.from_messages([
-    ("system", PROMPT_TEMPLATE),
-    MessagesPlaceholder(variable_name="history", optional=True),
-    ("human", "{human_msg}")
-])
+# prompt = ChatPromptTemplate.from_messages([
+#     ("system", PROMPT_TEMPLATE),
+#     MessagesPlaceholder(variable_name="history", optional=True),
+#     ("human", "{human_msg}")
+# ])
 
-runnable = prompt | llm
+# runnable = prompt | llm
 
-with_message_history = RunnableWithMessageHistory(
-    runnable,
-    get_session_history,
-    input_messages_key="human_msg",
-    history_messages_key="history",
-    history_factory_config=[  # 기존의 "session_id" 설정을 대체하게 됩니다.
-        ConfigurableFieldSpec(
-            id="user_id",  # get_session_history 함수의 첫 번째 인자로 사용됩니다.
-            annotation=str,
-            name="User ID",
-            description="사용자의 고유 식별자입니다.",
-            default="",
-            is_shared=True,
-        ),
-        ConfigurableFieldSpec(
-            id="project_id",  # get_session_history 함수의 두 번째 인자로 사용됩니다.
-            annotation=str,
-            name="Project ID",
-            description="Firestore Project ID입니다.",
-            default="",
-            is_shared=True,
-        ),
-    ],
-)
+# with_message_history = RunnableWithMessageHistory(
+#     runnable,
+#     get_session_history,
+#     input_messages_key="human_msg",
+#     history_messages_key="history",
+#     history_factory_config=[  # 기존의 "session_id" 설정을 대체하게 됩니다.
+#         ConfigurableFieldSpec(
+#             id="user_id",  # get_session_history 함수의 첫 번째 인자로 사용됩니다.
+#             annotation=str,
+#             name="User ID",
+#             description="사용자의 고유 식별자입니다.",
+#             default="",
+#             is_shared=True,
+#         ),
+#         ConfigurableFieldSpec(
+#             id="project_id",  # get_session_history 함수의 두 번째 인자로 사용됩니다.
+#             annotation=str,
+#             name="Project ID",
+#             description="Firestore Project ID입니다.",
+#             default="",
+#             is_shared=True,
+#         ),
+#     ],
+# )
+
+
+def get_chat_chain(custom_prompt):
+    """채팅 체인을 생성하는 함수"""
+    llm = ChatOpenAI(model="gpt-4-mini", api_key=st.secrets["OPENAI_API_KEY"])
+
+    prompt = ChatPromptTemplate.from_messages([
+        ("system", custom_prompt),
+        MessagesPlaceholder(variable_name="history", optional=True),
+        ("human", "{human_msg}")
+    ])
+
+    runnable = prompt | llm
+
+    return RunnableWithMessageHistory(
+        runnable,
+        get_session_history,
+        input_messages_key="human_msg",
+        history_messages_key="history",
+        history_factory_config=[
+            ConfigurableFieldSpec(
+                id="user_id",
+                annotation=str,
+                name="User ID",
+                description="사용자의 고유 식별자입니다.",
+                default="",
+                is_shared=True,
+            ),
+            ConfigurableFieldSpec(
+                id="project_id",
+                annotation=str,
+                name="Project ID",
+                description="Firestore Project ID입니다.",
+                default="",
+                is_shared=True,
+            ),
+        ],
+    )

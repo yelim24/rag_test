@@ -2,11 +2,9 @@ INITIAL_PROMPT = [
     {"role": "assistant", "content": "안녕하세요! 오늘 하루는 어땠나요? 무엇이든 이야기해 주세요."}
 ]
 
-SYSTEM_MESSAGE = """당신은 정신 건강 상담사입니다.
+PROMPT_TEMPLATE = """당신은 정신 건강 상담사입니다.
 아래 상담 예시와 내담자 정보를 참고해서 친절한 말투로 사용자에게 응원, 공감, 안정, 조언을 해주세요.
-답변은 짧고 간결하게 작성해주세요."""
-
-PROMPT_TEMPLATE = """{system_msg}
+답변은 짧고 간결하게 작성해주세요.
 
 #상담 예시
 {counseling_scenario}
