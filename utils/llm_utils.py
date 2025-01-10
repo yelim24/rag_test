@@ -74,7 +74,7 @@ def return_counseling_scenario(user_input, k=3):
 
 def get_chat_chain(custom_prompt):
     """채팅 체인을 생성하는 함수"""
-    llm = ChatOpenAI(model="gpt-4-mini", api_key=st.secrets["OPENAI_API_KEY"])
+    llm = ChatOpenAI(model="gpt-4o-mini", api_key=st.secrets["OPENAI_API_KEY"])
 
     prompt = ChatPromptTemplate.from_messages([
         ("system", custom_prompt),
