@@ -10,12 +10,12 @@ from utils.llm_utils import get_chat_chain
 USER_ID = st.query_params["user_id"] 
 messages_key = f"messages_{USER_ID}"  # 사용자별 메시지 키 생성
 
-st.wirte("프롬프트 입력 시작 부분")
+st.write("프롬프트 입력 시작 부분")
 custom_prompt = st.text_area(
     "상담사 프롬프트 설정",
     height=200
 )
-st.wirte("프롬프트 입력 종료 부분")
+st.write("프롬프트 입력 종료 부분")
 if custom_prompt == '':
     st.session_state.custom_prompt = PROMPT_TEMPLATE
 else:
