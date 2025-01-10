@@ -21,8 +21,8 @@ if custom_prompt == '':
 else:
     st.session_state.custom_prompt = custom_prompt
 
-with st.chat_message(INITIAL_PROMPT["role"]):
-    st.markdown(INITIAL_PROMPT["content"])
+with st.chat_message(INITIAL_PROMPT[0]["role"]):
+    st.markdown(INITIAL_PROMPT[0]["content"])
 
 # 사용자 입력 처리
 if prompt := st.chat_input("당신의 고민을 말씀해주세요"):
