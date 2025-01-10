@@ -26,7 +26,7 @@ with st.chat_message(INITIAL_PROMPT[0]["role"]):
 
 # 사용자 입력 처리
 if prompt := st.chat_input("당신의 고민을 말씀해주세요"):
-    st.session_state[messages_key].append({"role": "user", "content": prompt})  # 사용자별 메시지 키 사용
+    st.session_state.append({"role": "user", "content": prompt})  # 사용자별 메시지 키 사용
 
     # 사용자 메시지 출력
     with st.chat_message("user"):
@@ -74,5 +74,5 @@ if prompt := st.chat_input("당신의 고민을 말씀해주세요"):
 
         message_placeholder.markdown(bot_response)
 
-    st.session_state[messages_key].append({"role": "assistant", "content": bot_response})  # 사용자별 메시지 키 사용
+    st.session_state.append({"role": "assistant", "content": bot_response})  # 사용자별 메시지 키 사용
     
