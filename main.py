@@ -1,6 +1,7 @@
 import streamlit as st
 import time
-from utils.llm_utils import with_message_history, return_counseling_scenario
+# from utils.llm_utils import with_message_history, return_counseling_scenario
+from utils.llm_utils import return_counseling_scenario
 from utils.constants import INITIAL_PROMPT, PROMPT_TEMPLATE, RESPONSE_ERROR_MSG
 from utils.firestore_utils import get_session_history
 from utils.llm_utils import get_chat_chain
