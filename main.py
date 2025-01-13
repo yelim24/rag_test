@@ -10,10 +10,10 @@ from utils.llm_utils import get_chat_chain
 USER_ID = st.query_params.get("user_id", "default_user")
 messages_key = f"messages_{USER_ID}"  # 사용자별 메시지 키 생성
 
-st.subheader("prompt 테스트용 페이지입니다. 하단에 테스트용 프롬프트를 입력하세요.")
+st.subheader("prompt 테스트용 페이지입니다.")
 custom_prompt = st.text_area(
-    "프롬프트 설정",
-    height=200
+    "하단에 테스트용 프롬프트를 입력하세요.",
+    height=150
 )
 
 if custom_prompt == '':
