@@ -11,3 +11,5 @@ google-auth
 streamlit-chromadb-connection
 pysqlite3-binary
 langchain-openai
+langchain_huggingface 
+langchain-chroma
