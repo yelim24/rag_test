@@ -10,23 +10,27 @@ from utils.llm_utils import get_chat_chain
 USER_ID = st.query_params["user_id"] 
 messages_key = f"messages_{USER_ID}"  # 사용자별 메시지 키 생성
 
-st.write("프롬프트 입력 시작 부분")
+st.write("하단에 테스트용 프롬프트를 입력하세요.")
 custom_prompt = st.text_area(
-    "상담사 프롬프트 설정",
+    "프롬프트 설정",
     height=200
 )
-st.write("프롬프트 입력 종료 부분")
+
 if custom_prompt == '':
     st.session_state.custom_prompt = PROMPT_TEMPLATE
 else:
     st.session_state.custom_prompt = custom_prompt
-
+st.write(st.session_state.custom_prompt)
 with st.chat_message(INITIAL_PROMPT[0]["role"]):
     st.markdown(INITIAL_PROMPT[0]["content"])
     
 if "messages" not in st.session_state:
         st.session_state.messages = []
-        
+
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+            
 # 사용자 입력 처리
 if prompt := st.chat_input("당신의 고민을 말씀해주세요"):
     st.session_state.messages.append({"role": "user", "content": prompt})  # 사용자별 메시지 키 사용
