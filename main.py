@@ -7,10 +7,10 @@ from utils.firestore_utils import get_session_history
 from utils.llm_utils import get_chat_chain
 
 # 사용자 식별자 설정 (예: 로그인 또는 고유 ID)
-USER_ID = st.query_params["user_id"] 
+USER_ID = st.query_params.get("user_id", "default_user")
 messages_key = f"messages_{USER_ID}"  # 사용자별 메시지 키 생성
 
-st.write("하단에 테스트용 프롬프트를 입력하세요.")
+st.subheader("prompt 테스트용 페이지입니다. 하단에 테스트용 프롬프트를 입력하세요.")
 custom_prompt = st.text_area(
     "프롬프트 설정",
     height=200
@@ -20,7 +20,7 @@ if custom_prompt == '':
     st.session_state.custom_prompt = PROMPT_TEMPLATE
 else:
     st.session_state.custom_prompt = custom_prompt
-st.write(st.session_state.custom_prompt)
+
 with st.chat_message(INITIAL_PROMPT[0]["role"]):
     st.markdown(INITIAL_PROMPT[0]["content"])
     
