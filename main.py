@@ -3,7 +3,7 @@ import time
 # from utils.llm_utils import with_message_history, return_counseling_scenario
 from utils.llm_utils import return_counseling_scenario
 from utils.constants import INITIAL_PROMPT, PROMPT_TEMPLATE, RESPONSE_ERROR_MSG
-from utils.firestore_utils import get_session_history
+from utils.firestore_utils import get_session_history, delete_session_history
 from utils.llm_utils import get_chat_chain
 
 # 사용자 식별자 설정 (예: 로그인 또는 고유 ID)
@@ -11,6 +11,15 @@ USER_ID = st.query_params.get("user_id", "default_user")
 messages_key = f"messages_{USER_ID}"  # 사용자별 메시지 키 생성
 
 st.subheader("prompt 테스트용 페이지입니다.")
+
+# 대화 초기화 버튼 추가
+if st.button("대화 기록 삭제"):
+    # Streamlit 세션 상태 초기화
+    st.session_state.messages = []
+    # Firestore 대화 기록 삭제
+    delete_session_history(USER_ID, "chatbot-test-443801")
+    st.rerun()
+    
 custom_prompt = st.text_area(
     "하단에 테스트용 프롬프트를 입력하세요.",
     height=150

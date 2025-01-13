@@ -60,4 +60,14 @@ def get_session_history(user_id, project_id):
         collection="chat_logs",
         client=client,
     )
+
+def delete_session_history(user_id: str, project_id: str):
+    """Firestore의 chat_logs 컬렉션에서 특정 user_id 문서를 삭제하는 함수"""
+    key_dict = json.loads(st.secrets["textkey"])
+    creds = service_account.Credentials.from_service_account_info(key_dict)
+    client = firestore.Client(credentials=creds, project=project_id)
+    
+    # chat_logs 컬렉션에서 해당 user_id 문서 삭제
+    doc_ref = client.collection("chat_logs").document(user_id)
+    doc_ref.delete()
     
