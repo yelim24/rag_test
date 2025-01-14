@@ -2,7 +2,7 @@ import streamlit as st
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_openai import ChatOpenAI
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_chroma import Chroma
+from langchain.vectorstores import Chroma
 from langchain_core.runnables import RunnableWithMessageHistory, ConfigurableFieldSpec
 from utils.firestore_utils import get_session_history
 from utils.constants import PROMPT_TEMPLATE
