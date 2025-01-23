@@ -79,6 +79,7 @@ def get_chat_chain(custom_prompt, hf_endpoint_url=None):
             endpoint_url=hf_endpoint_url,
             max_new_tokens=512,
             temperature=0.01,
+            huggingfacehub_api_token=st.secrets["HUGGINGFACEHUB_API_TOKEN"]
         )
     else:
         llm = ChatOpenAI(model="gpt-4o-mini", api_key=st.secrets["OPENAI_API_KEY"])
