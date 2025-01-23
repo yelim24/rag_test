@@ -19,7 +19,9 @@ if st.button("대화 기록 삭제"):
     # Firestore 대화 기록 삭제
     delete_session_history(USER_ID, "chatbot-test-443801")
     st.rerun()
-    
+
+hf_endpoint_url = st.text_input("HuggingFace Endpoint URL", "")
+
 custom_prompt = st.text_area(
     "하단에 테스트용 프롬프트를 입력하세요.",
     height=150
@@ -61,7 +63,7 @@ if prompt := st.chat_input("당신의 고민을 말씀해주세요"):
     # )
     
     # chat_chain 초기화
-    chat_chain = get_chat_chain(st.session_state.custom_prompt)
+    chat_chain = get_chat_chain(st.session_state.custom_prompt, hf_endpoint_url)
 
     # 채팅 응답 생성
     response = chat_chain.invoke(

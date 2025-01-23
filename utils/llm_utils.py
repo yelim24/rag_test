@@ -1,7 +1,7 @@
 import streamlit as st
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_openai import ChatOpenAI
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings, HuggingFaceEndpoint
 from langchain_community.vectorstores import Chroma
 from langchain_core.runnables import RunnableWithMessageHistory, ConfigurableFieldSpec
 from utils.firestore_utils import get_session_history
@@ -72,9 +72,16 @@ def return_counseling_scenario(user_input, k=3):
 # )
 
 
-def get_chat_chain(custom_prompt):
+def get_chat_chain(custom_prompt, hf_endpoint_url=None):
     """채팅 체인을 생성하는 함수"""
-    llm = ChatOpenAI(model="gpt-4o-mini", api_key=st.secrets["OPENAI_API_KEY"])
+    if hf_endpoint_url:
+        llm = HuggingFaceEndpoint(
+            endpoint_url=hf_endpoint_url,
+            max_new_tokens=512,
+            temperature=0.01,
+        )
+    else:
+        llm = ChatOpenAI(model="gpt-4o-mini", api_key=st.secrets["OPENAI_API_KEY"])
 
     prompt = ChatPromptTemplate.from_messages([
         ("system", custom_prompt),
