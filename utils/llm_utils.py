@@ -4,6 +4,7 @@ from langchain_openai import ChatOpenAI
 from langchain_huggingface import HuggingFaceEmbeddings, HuggingFaceEndpoint
 from langchain_community.vectorstores import Chroma
 from langchain_core.runnables import RunnableWithMessageHistory, ConfigurableFieldSpec
+from langchain_core.output_parsers import StrOutputParser
 from utils.firestore_utils import get_session_history
 from utils.constants import PROMPT_TEMPLATE
 
@@ -74,6 +75,12 @@ def return_counseling_scenario(user_input, k=3):
 
 def get_chat_chain(custom_prompt, hf_endpoint_url=None):
     """채팅 체인을 생성하는 함수"""
+    prompt = ChatPromptTemplate.from_messages([
+        ("system", custom_prompt),
+        MessagesPlaceholder(variable_name="history", optional=True),
+        ("human", "{human_msg}")
+    ])
+    
     if hf_endpoint_url:
         llm = HuggingFaceEndpoint(
             endpoint_url=hf_endpoint_url,
@@ -81,16 +88,10 @@ def get_chat_chain(custom_prompt, hf_endpoint_url=None):
             temperature=0.01,
             huggingfacehub_api_token=st.secrets["HUGGINGFACEHUB_API_TOKEN"]
         )
+        runnable = prompt | llm | StrOutputParser()
     else:
         llm = ChatOpenAI(model="gpt-4o-mini", api_key=st.secrets["OPENAI_API_KEY"])
-
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", custom_prompt),
-        MessagesPlaceholder(variable_name="history", optional=True),
-        ("human", "{human_msg}")
-    ])
-
-    runnable = prompt | llm
+        runnable = prompt | llm
 
     return RunnableWithMessageHistory(
         runnable,
@@ -116,3 +117,4 @@ def get_chat_chain(custom_prompt, hf_endpoint_url=None):
             ),
         ],
     )
+    
