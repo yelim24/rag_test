@@ -74,6 +74,7 @@ if prompt := st.chat_input("당신의 고민을 말씀해주세요"):
         config={"configurable": {"user_id": USER_ID, "project_id": "chatbot-test-443801"}},
     )
     # 챗봇 응답 출력
+    print(response)
     try:
         bot_response = response.content
     except Exception as e:
