@@ -51,7 +51,7 @@ if prompt := st.chat_input("당신의 고민을 말씀해주세요"):
         st.markdown(prompt)
 
     # 상담 시나리오 호출
-    counseling_scenario = return_counseling_scenario(prompt)
+    # counseling_scenario = return_counseling_scenario(prompt)
     
     # # with_message_history 실행
     # response = with_message_history.invoke(
@@ -68,7 +68,7 @@ if prompt := st.chat_input("당신의 고민을 말씀해주세요"):
     # 채팅 응답 생성
     response = chat_chain.invoke(
         {
-            "counseling_scenario": counseling_scenario,
+            # "counseling_scenario": counseling_scenario,
             "human_msg": prompt,
         },
         config={"configurable": {"user_id": USER_ID, "project_id": "chatbot-test-443801"}},
