@@ -73,14 +73,15 @@ if prompt := st.chat_input("당신의 고민을 말씀해주세요"):
         },
         config={"configurable": {"user_id": USER_ID, "project_id": "chatbot-test-443801"}},
     )
-    # 챗봇 응답 출력
-    with st.chat_message("assistant"):
-        st.markdown(response)
-    try:
-        bot_response = response.content
-    except Exception as e:
-        bot_response = RESPONSE_ERROR_MSG
-        st.error(f"Error: {e}")
+    
+    if isinstance(response, str):
+        bot_response = response
+    else:
+        try:
+            bot_response = response.content
+        except Exception as e:
+            bot_response = RESPONSE_ERROR_MSG
+            st.error(f"Error: {e}")
 
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
